@@ -37,7 +37,11 @@
       },
     );
 
-    revealElements.forEach((el) => {
+    revealElements.forEach((el, index) => {
+      if (!el.dataset.delay) {
+        el.style.transitionDelay = `${Math.min(index * 0.035, 0.22)}s`;
+      }
+
       revealObserver.observe(el);
     });
   });
