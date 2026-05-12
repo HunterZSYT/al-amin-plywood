@@ -13,14 +13,16 @@
       "https://cdn.jsdelivr.net/gh/mearnest-dev/agentation-vanilla@main/agentation-vanilla.js";
     document.body.appendChild(script);
   }
+
   // Whole Page scroll Aniamtion
-  // Smooth reveal animation
+
+  // Premium smooth reveal animation
   document.addEventListener("DOMContentLoaded", () => {
     const revealElements = document.querySelectorAll(
-      ".fade_up, .fade_down, .zoom_in, .zoom_out, .fade_right, .fade_left, .flip_left, .flip_right, .flip_up, .flip_down",
+      "[data-reveal], .fade_up, .fade_down, .zoom_in, .zoom_out, .fade_right, .fade_left, .flip_left, .flip_right, .flip_up, .flip_down",
     );
 
-    const observer = new IntersectionObserver(
+    const revealObserver = new IntersectionObserver(
       (entries, observer) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
@@ -30,14 +32,13 @@
         });
       },
       {
-        threshold: 0.12,
-        rootMargin: "0px 0px -40px 0px",
+        threshold: 0.14,
+        rootMargin: "0px 0px -45px 0px",
       },
     );
 
-    revealElements.forEach((el, index) => {
-      el.style.transitionDelay = `${Math.min(index * 0.04, 0.22)}s`;
-      observer.observe(el);
+    revealElements.forEach((el) => {
+      revealObserver.observe(el);
     });
   });
   // fancy Box for pop-up section
