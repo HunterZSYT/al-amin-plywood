@@ -3755,3 +3755,714 @@
     grid-template-columns: repeat(1, 1fr);
   }
 }
+
+/* ===== Stable Hero Slider Patch - Al Amin Plywood ===== */
+
+/* 
+  Fix hero layout jump on desktop + mobile.
+  The hero text changes between slides, so we lock a stable hero/slide height.
+*/
+
+.hero-1-section {
+  overflow: hidden;
+}
+
+.hero-1-container {
+  min-height: 720px;
+  display: flex;
+  align-items: center;
+}
+
+.hero1-slider-wrapper,
+.hero1-slider-wrapper .slick-list,
+.hero1-slider-wrapper .slick-track {
+  min-height: 520px;
+}
+
+.hero1-slider-wrapper .slick-track {
+  display: flex !important;
+  align-items: stretch;
+}
+
+.hero1-slider-wrapper .slick-slide {
+  height: auto;
+}
+
+.hero1-slider-wrapper .slick-slide > div {
+  height: 100%;
+}
+
+.hero1-slider-container {
+  min-height: 520px;
+  height: 100%;
+  justify-content: center;
+}
+
+.hero-1-container h1,
+.hero-3-container h1 {
+  min-height: 310px;
+}
+
+.hero-1-container .hero-1-para,
+.hero-3-container .hero-1-para {
+  min-height: 110px;
+}
+
+/* Make hero slide text transition smoother */
+.hero1-slider-container h1,
+.hero1-slider-container p,
+.hero1-slider-container .hero1-customers-container {
+  transition:
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Laptop / smaller desktop */
+@media (max-width: 1399px) {
+  .hero-1-container {
+    min-height: 680px;
+  }
+
+  .hero1-slider-wrapper,
+  .hero1-slider-wrapper .slick-list,
+  .hero1-slider-wrapper .slick-track,
+  .hero1-slider-container {
+    min-height: 500px;
+  }
+
+  .hero-1-container h1,
+  .hero-3-container h1 {
+    min-height: 285px;
+  }
+
+  .hero-1-container .hero-1-para,
+  .hero-3-container .hero-1-para {
+    min-height: 105px;
+  }
+}
+
+/* Tablet */
+@media (max-width: 991px) {
+  .hero-1-container {
+    min-height: 640px;
+  }
+
+  .hero1-slider-wrapper,
+  .hero1-slider-wrapper .slick-list,
+  .hero1-slider-wrapper .slick-track,
+  .hero1-slider-container {
+    min-height: 480px;
+  }
+
+  .hero-1-container h1,
+  .hero-3-container h1 {
+    min-height: 245px;
+  }
+
+  .hero-1-container .hero-1-para,
+  .hero-3-container .hero-1-para {
+    min-height: 112px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .hero-1-section {
+    margin: 104px 10px 0;
+    max-width: calc(100% - 20px);
+    min-height: 620px;
+  }
+
+  .hero-1-container {
+    min-height: 620px;
+    padding: 46px 18px 42px !important;
+    justify-content: center;
+  }
+
+  .hero1-slider-wrapper,
+  .hero1-slider-wrapper .slick-list,
+  .hero1-slider-wrapper .slick-track,
+  .hero1-slider-container {
+    min-height: 510px;
+  }
+
+  .hero1-slider-container {
+    text-align: center;
+    align-items: center !important;
+  }
+
+  .hero-1-container h1,
+  .hero-3-container h1 {
+    min-height: 220px;
+    font-size: clamp(30px, 9vw, 36px) !important;
+    line-height: 1.16 !important;
+    padding-top: 0 !important;
+    letter-spacing: -0.4px;
+  }
+
+  .hero-video-wrapper {
+    display: block !important;
+    width: fit-content;
+    margin: 10px auto;
+  }
+
+  .hero-video-wrapper img {
+    width: 140px;
+    height: 42px;
+    max-height: 42px !important;
+    object-fit: cover;
+  }
+
+  .hero-1-container .hero-1-para,
+  .hero-3-container .hero-1-para {
+    min-height: 120px;
+    max-width: 310px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 15.5px !important;
+    line-height: 24px !important;
+    padding: 14px 0 28px !important;
+  }
+
+  .explore-our-services-btn {
+    min-width: 200px;
+    height: 54px;
+    border-radius: 14px;
+  }
+
+  .explore-our-services-btn .btn-text {
+    height: 54px;
+    font-size: 15px;
+  }
+
+  .explore-our-services-btn:hover .btn-main {
+    top: -54px;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 420px) {
+  .hero-1-section {
+    min-height: 600px;
+  }
+
+  .hero-1-container {
+    min-height: 600px;
+    padding: 42px 16px 38px !important;
+  }
+
+  .hero1-slider-wrapper,
+  .hero1-slider-wrapper .slick-list,
+  .hero1-slider-wrapper .slick-track,
+  .hero1-slider-container {
+    min-height: 500px;
+  }
+
+  .hero-1-container h1,
+  .hero-3-container h1 {
+    min-height: 215px;
+    font-size: clamp(28px, 8.4vw, 33px) !important;
+  }
+
+  .hero-1-container .hero-1-para,
+  .hero-3-container .hero-1-para {
+    min-height: 126px;
+    max-width: 290px;
+    font-size: 15px !important;
+    line-height: 23px !important;
+  }
+}
+
+/* ===== Desktop Safe Hero Patch - Al Amin Plywood ===== */
+
+/*
+  Desktop should stay natural.
+  Only typography and spacing are controlled.
+  Mobile/tablet gets height lock to stop slider jumping.
+*/
+
+/* Desktop hero cleanup */
+@media (min-width: 992px) {
+  .hero-1-container {
+    min-height: unset !important;
+    display: block !important;
+    padding-top: 90px !important;
+    padding-bottom: 90px !important;
+  }
+
+  .hero1-slider-wrapper,
+  .hero1-slider-wrapper .slick-list,
+  .hero1-slider-wrapper .slick-track,
+  .hero1-slider-container {
+    min-height: unset !important;
+    height: auto !important;
+  }
+
+  .hero1-slider-container {
+    justify-content: flex-start !important;
+  }
+
+  .hero-1-container h1,
+  .hero-3-container h1 {
+    max-width: 1180px !important;
+    min-height: unset !important;
+    font-size: clamp(58px, 4.4vw, 74px) !important;
+    line-height: 1.16 !important;
+    padding-top: 58px !important;
+    letter-spacing: -1.4px;
+  }
+
+  .hero-1-container .hero-1-para,
+  .hero-3-container .hero-1-para {
+    max-width: 830px !important;
+    min-height: unset !important;
+    margin-top: 14px !important;
+    font-size: 23px !important;
+    line-height: 34px !important;
+    padding: 0 0 50px 0 !important;
+  }
+
+  .hero-video-wrapper img {
+    max-height: 70px !important;
+    width: 175px;
+    object-fit: cover;
+  }
+
+  .hero1-slider-container h1,
+  .hero1-slider-container p,
+  .hero1-slider-container .hero1-customers-container {
+    transition:
+      opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+}
+
+/* Large desktop */
+@media (min-width: 1400px) {
+  .hero-1-container h1,
+  .hero-3-container h1 {
+    max-width: 1220px !important;
+    font-size: 76px !important;
+    line-height: 1.16 !important;
+  }
+
+  .hero-video-wrapper img {
+    max-height: 74px !important;
+    width: 185px;
+  }
+}
+
+/* Tablet lock */
+@media (max-width: 991px) {
+  .hero-1-section {
+    overflow: hidden;
+  }
+
+  .hero-1-container {
+    min-height: 640px;
+    display: flex;
+    align-items: center;
+  }
+
+  .hero1-slider-wrapper,
+  .hero1-slider-wrapper .slick-list,
+  .hero1-slider-wrapper .slick-track,
+  .hero1-slider-container {
+    min-height: 480px;
+  }
+
+  .hero1-slider-wrapper .slick-track {
+    display: flex !important;
+    align-items: stretch;
+  }
+
+  .hero1-slider-wrapper .slick-slide {
+    height: auto;
+  }
+
+  .hero1-slider-wrapper .slick-slide > div {
+    height: 100%;
+  }
+
+  .hero1-slider-container {
+    height: 100%;
+    justify-content: center;
+  }
+
+  .hero-1-container h1,
+  .hero-3-container h1 {
+    min-height: 245px;
+  }
+
+  .hero-1-container .hero-1-para,
+  .hero-3-container .hero-1-para {
+    min-height: 112px;
+  }
+}
+
+/* Mobile lock */
+@media (max-width: 767px) {
+  .hero-1-section {
+    margin: 104px 10px 0;
+    max-width: calc(100% - 20px);
+    min-height: 620px;
+  }
+
+  .hero-1-container {
+    min-height: 620px;
+    padding: 46px 18px 42px !important;
+    justify-content: center;
+  }
+
+  .hero1-slider-wrapper,
+  .hero1-slider-wrapper .slick-list,
+  .hero1-slider-wrapper .slick-track,
+  .hero1-slider-container {
+    min-height: 510px;
+  }
+
+  .hero1-slider-container {
+    text-align: center;
+    align-items: center !important;
+  }
+
+  .hero-1-container h1,
+  .hero-3-container h1 {
+    min-height: 220px;
+    font-size: clamp(30px, 9vw, 36px) !important;
+    line-height: 1.16 !important;
+    padding-top: 0 !important;
+    letter-spacing: -0.4px;
+  }
+
+  .hero-video-wrapper {
+    display: block !important;
+    width: fit-content;
+    margin: 10px auto;
+  }
+
+  .hero-video-wrapper img {
+    width: 140px;
+    height: 42px;
+    max-height: 42px !important;
+    object-fit: cover;
+  }
+
+  .hero-1-container .hero-1-para,
+  .hero-3-container .hero-1-para {
+    min-height: 120px;
+    max-width: 310px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 15.5px !important;
+    line-height: 24px !important;
+    padding: 14px 0 28px !important;
+  }
+
+  .explore-our-services-btn {
+    min-width: 200px;
+    height: 54px;
+    border-radius: 14px;
+  }
+
+  .explore-our-services-btn .btn-text {
+    height: 54px;
+    font-size: 15px;
+  }
+
+  .explore-our-services-btn:hover .btn-main {
+    top: -54px;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 420px) {
+  .hero-1-section {
+    min-height: 600px;
+  }
+
+  .hero-1-container {
+    min-height: 600px;
+    padding: 42px 16px 38px !important;
+  }
+
+  .hero1-slider-wrapper,
+  .hero1-slider-wrapper .slick-list,
+  .hero1-slider-wrapper .slick-track,
+  .hero1-slider-container {
+    min-height: 500px;
+  }
+
+  .hero-1-container h1,
+  .hero-3-container h1 {
+    min-height: 215px;
+    font-size: clamp(28px, 8.4vw, 33px) !important;
+  }
+
+  .hero-1-container .hero-1-para,
+  .hero-3-container .hero-1-para {
+    min-height: 126px;
+    max-width: 290px;
+    font-size: 15px !important;
+    line-height: 23px !important;
+  }
+}
+
+/* ===== Final Hero Fix - Al Amin Plywood ===== */
+
+/*
+  Desktop: natural layout, no forced hero height.
+  Mobile/tablet: fixed text space to stop slider jumping.
+*/
+
+/* Desktop hero repair */
+@media (min-width: 992px) {
+  .hero-1-section {
+    overflow: hidden;
+  }
+
+  .hero-1-container {
+    min-height: unset !important;
+    height: auto !important;
+    display: block !important;
+    padding: 90px 0 86px 100px !important;
+  }
+
+  .hero1-slider-wrapper,
+  .hero1-slider-wrapper .slick-list,
+  .hero1-slider-wrapper .slick-track,
+  .hero1-slider-container,
+  .hero1-slider-wrapper .slick-slide,
+  .hero1-slider-wrapper .slick-slide > div {
+    min-height: unset !important;
+    height: auto !important;
+  }
+
+  .hero1-slider-container {
+    justify-content: flex-start !important;
+    align-items: flex-start !important;
+  }
+
+  .hero-1-container h1,
+  .hero-3-container h1 {
+    max-width: 1180px !important;
+    min-height: 250px !important;
+    font-size: clamp(58px, 4.3vw, 74px) !important;
+    line-height: 1.16 !important;
+    padding-top: 58px !important;
+    letter-spacing: -1.2px;
+  }
+
+  .hero-video-wrapper img {
+    width: 175px !important;
+    max-height: 70px !important;
+    object-fit: cover;
+  }
+
+  .hero-1-container .hero-1-para,
+  .hero-3-container .hero-1-para {
+    max-width: 820px !important;
+    min-height: 82px !important;
+    font-size: 22px !important;
+    line-height: 34px !important;
+    padding: 0 0 42px 0 !important;
+  }
+
+  .explore-our-services-btn {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: 60px !important;
+    min-width: 229px !important;
+    border-radius: 16px !important;
+  }
+
+  .explore-our-services-btn .btn-main {
+    top: 0;
+    height: 120px !important;
+  }
+
+  .explore-our-services-btn .btn-text {
+    height: 60px !important;
+    min-height: 60px !important;
+    font-size: 18px !important;
+    line-height: 24px !important;
+    color: #fff !important;
+  }
+
+  .explore-our-services-btn:hover .btn-main {
+    top: -60px !important;
+  }
+}
+
+/* Large desktop */
+@media (min-width: 1400px) {
+  .hero-1-container h1,
+  .hero-3-container h1 {
+    max-width: 1200px !important;
+    min-height: 260px !important;
+    font-size: 74px !important;
+    line-height: 1.16 !important;
+  }
+}
+
+/* Tablet stability */
+@media (max-width: 991px) {
+  .hero-1-section {
+    overflow: hidden;
+  }
+
+  .hero-1-container {
+    min-height: 640px;
+    display: flex;
+    align-items: center;
+  }
+
+  .hero1-slider-wrapper,
+  .hero1-slider-wrapper .slick-list,
+  .hero1-slider-wrapper .slick-track,
+  .hero1-slider-container {
+    min-height: 480px;
+  }
+
+  .hero1-slider-wrapper .slick-track {
+    display: flex !important;
+    align-items: stretch;
+  }
+
+  .hero1-slider-wrapper .slick-slide {
+    height: auto;
+  }
+
+  .hero1-slider-wrapper .slick-slide > div {
+    height: 100%;
+  }
+
+  .hero1-slider-container {
+    height: 100%;
+    justify-content: center;
+  }
+
+  .hero-1-container h1,
+  .hero-3-container h1 {
+    min-height: 245px;
+  }
+
+  .hero-1-container .hero-1-para,
+  .hero-3-container .hero-1-para {
+    min-height: 112px;
+  }
+}
+
+/* Mobile stability */
+@media (max-width: 767px) {
+  .hero-1-section {
+    margin: 104px 10px 0;
+    max-width: calc(100% - 20px);
+    min-height: 620px;
+  }
+
+  .hero-1-container {
+    min-height: 620px;
+    padding: 46px 18px 42px !important;
+    justify-content: center;
+  }
+
+  .hero1-slider-wrapper,
+  .hero1-slider-wrapper .slick-list,
+  .hero1-slider-wrapper .slick-track,
+  .hero1-slider-container {
+    min-height: 510px;
+  }
+
+  .hero1-slider-container {
+    text-align: center;
+    align-items: center !important;
+  }
+
+  .hero-1-container h1,
+  .hero-3-container h1 {
+    min-height: 220px;
+    font-size: clamp(30px, 9vw, 36px) !important;
+    line-height: 1.16 !important;
+    padding-top: 0 !important;
+    letter-spacing: -0.4px;
+  }
+
+  .hero-video-wrapper {
+    display: block !important;
+    width: fit-content;
+    margin: 10px auto;
+  }
+
+  .hero-video-wrapper img {
+    width: 140px !important;
+    height: 42px !important;
+    max-height: 42px !important;
+    object-fit: cover;
+  }
+
+  .hero-1-container .hero-1-para,
+  .hero-3-container .hero-1-para {
+    min-height: 120px;
+    max-width: 310px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 15.5px !important;
+    line-height: 24px !important;
+    padding: 14px 0 28px !important;
+  }
+
+  .explore-our-services-btn {
+    min-width: 200px !important;
+    height: 54px !important;
+    border-radius: 14px;
+  }
+
+  .explore-our-services-btn .btn-main {
+    height: 108px !important;
+  }
+
+  .explore-our-services-btn .btn-text {
+    height: 54px !important;
+    min-height: 54px !important;
+    font-size: 15px !important;
+  }
+
+  .explore-our-services-btn:hover .btn-main {
+    top: -54px !important;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 420px) {
+  .hero-1-section {
+    min-height: 600px;
+  }
+
+  .hero-1-container {
+    min-height: 600px;
+    padding: 42px 16px 38px !important;
+  }
+
+  .hero1-slider-wrapper,
+  .hero1-slider-wrapper .slick-list,
+  .hero1-slider-wrapper .slick-track,
+  .hero1-slider-container {
+    min-height: 500px;
+  }
+
+  .hero-1-container h1,
+  .hero-3-container h1 {
+    min-height: 215px;
+    font-size: clamp(28px, 8.4vw, 33px) !important;
+  }
+
+  .hero-1-container .hero-1-para,
+  .hero-3-container .hero-1-para {
+    min-height: 126px;
+    max-width: 290px;
+    font-size: 15px !important;
+    line-height: 23px !important;
+  }
+}
