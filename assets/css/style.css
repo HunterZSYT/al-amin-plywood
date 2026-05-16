@@ -805,17 +805,17 @@ header {
 .about-us-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 30px;
+  gap: 15px;
 }
 .about-us-left-container {
   gap: 30px;
 }
 .about-us-left-container img {
-  border-radius: 20px;
+  border-radius: 0;
 }
 .about-img-person {
-  bottom: 0;
-  left: 0;
+  bottom: -10px;
+  left: -10px;
 }
 .about-us-right-image-container {
   gap: 30px;
@@ -7940,7 +7940,7 @@ header.top-navbar {
   width: 100%;
   max-width: 380px;
   height: 500px;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
   background: #eae5e0;
   border-radius: 20px;
