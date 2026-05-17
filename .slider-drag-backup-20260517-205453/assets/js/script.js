@@ -142,7 +142,7 @@
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 4000,
+        autoplaySpeed: 3000,
         fade: true,
         speed: 2000,
         arrows: false,
@@ -255,266 +255,45 @@
   });
   // common function for the slick slider
   function initSlickSlider({ slider, settings, prevBtn, nextBtn }) {
-    const $sliders = $(slider);
-    if (!$sliders.length) return;
-
-    const getPoint = (e) => {
-      const original = e.originalEvent || e;
-      const touch =
-        (original.touches && original.touches[0]) ||
-        (original.changedTouches && original.changedTouches[0]);
-
-      return {
-        x: touch ? touch.clientX : original.clientX,
-        y: touch ? touch.clientY : original.clientY,
-      };
-    };
-
-    const baseSettings = {
-      draggable: true,
-      swipe: true,
-      touchMove: true,
-      swipeToSlide: true,
-      waitForAnimate: false,
-      touchThreshold: 1000,
-      cssEase: "ease-out",
-    };
-
-    $sliders.each(function () {
-      const $slider = $(this);
-      const finalSettings = { ...baseSettings, ...settings };
-
-      if (finalSettings.speed && finalSettings.speed > 700) {
-        finalSettings.speed = 450;
-      }
-
-      if (!$slider.hasClass("slick-initialized")) {
-        $slider.slick(finalSettings);
-      }
-
-      let startX = 0;
-      let startY = 0;
-      let dragged = false;
-
-            $slider
-        .on("pointerdown", function () {
-          $slider.addClass("is-drag-pressing");
-          if ($slider.hasClass("slick-initialized")) {
-            $slider.slick("slickPause");
-          }
-        })
-        .on("pointerup pointercancel mouseleave", function () {
-          $slider.removeClass("is-drag-pressing");
-          if ($slider.hasClass("slick-initialized")) {
-            $slider.slick("slickPlay");
-          }
-        });
-$slider
-        .off(".dragGuard")
-        .on("mousedown.dragGuard touchstart.dragGuard", function (e) {
-          const p = getPoint(e);
-          startX = p.x || 0;
-          startY = p.y || 0;
-          dragged = false;
-        })
-        .on("mousemove.dragGuard touchmove.dragGuard", function (e) {
-          const p = getPoint(e);
-          if (
-            Math.abs((p.x || 0) - startX) > 6 ||
-            Math.abs((p.y || 0) - startY) > 6
-          ) {
-            dragged = true;
-          }
-        })
-        .on("click.dragGuard", "a", function (e) {
-          if (dragged || $slider.hasClass("slick-dragging")) {
-            e.preventDefault();
-            e.stopImmediatePropagation();
-          }
-        });
-    });
-
+    const $slider = $(slider);
+    if (!$slider.length) return;
+    if (!$slider.hasClass("slick-initialized")) {
+      $slider.slick(settings);
+    }
     if (prevBtn) {
       $(document).on("click", prevBtn, function () {
-        $sliders.slick("slickPrev");
+        $slider.slick("slickPrev");
       });
     }
-
     if (nextBtn) {
       $(document).on("click", nextBtn, function () {
-        $sliders.slick("slickNext");
+        $slider.slick("slickNext");
       });
     }
   }
   // projects slider section
   $(function () {
-    function initCardDragSlider(sectionSelector) {
-      const section = document.querySelector(sectionSelector);
-      if (!section) return;
-
-      const slider = section.querySelector(".projects-autoplay");
-      if (!slider) return;
-
-      const $slider = $(slider);
-
-      if ($slider.hasClass("slick-initialized")) {
-        $slider.slick("unslick");
-      }
-
-      let isDown = false;
-      let startX = 0;
-      let startScrollLeft = 0;
-      let moved = false;
-      let hover = false;
-      let autoTimer = null;
-
-      function cardStep() {
-        const card = slider.querySelector(".projects-card");
-        if (!card) return slider.clientWidth * 0.8;
-
-        const rect = card.getBoundingClientRect();
-        const style = window.getComputedStyle(slider);
-        const gap = parseFloat(style.gap || style.columnGap || "30") || 30;
-
-        return rect.width + gap;
-      }
-
-      function stopAuto() {
-        if (autoTimer) {
-          clearInterval(autoTimer);
-          autoTimer = null;
-        }
-      }
-
-      function startAuto() {
-        stopAuto();
-        if (isDown || hover) return;
-
-        autoTimer = setInterval(function () {
-          const maxScroll = slider.scrollWidth - slider.clientWidth;
-          if (slider.scrollLeft >= maxScroll - 10) {
-            slider.scrollTo({ left: 0, behavior: "smooth" });
-          } else {
-            slider.scrollBy({ left: cardStep(), behavior: "smooth" });
-          }
-        }, 4200);
-      }
-
-      function dragStart(e) {
-        if (e.button !== undefined && e.button !== 0) return;
-
-        isDown = true;
-        moved = false;
-        startX = e.clientX;
-        startScrollLeft = slider.scrollLeft;
-
-        slider.classList.add("is-card-dragging");
-        document.body.classList.add("is-card-slider-dragging");
-
-        stopAuto();
-        e.preventDefault();
-      }
-
-      function dragMove(e) {
-        if (!isDown) return;
-
-        const x = e.clientX;
-        const walk = x - startX;
-
-        if (Math.abs(walk) > 1) {
-          moved = true;
-        }
-
-        slider.scrollLeft = startScrollLeft - walk;
-        e.preventDefault();
-      }
-
-      function dragEnd() {
-        if (!isDown) return;
-
-        isDown = false;
-        slider.classList.remove("is-card-dragging");
-        document.body.classList.remove("is-card-slider-dragging");
-
-        setTimeout(function () {
-          moved = false;
-        }, 120);
-
-        startAuto();
-      }
-
-      slider.addEventListener("mousedown", dragStart);
-      document.addEventListener("mousemove", dragMove);
-      document.addEventListener("mouseup", dragEnd);
-
-      slider.addEventListener(
-        "touchstart",
-        function (e) {
-          if (!e.touches || !e.touches.length) return;
-
-          isDown = true;
-          moved = false;
-          startX = e.touches[0].clientX;
-          startScrollLeft = slider.scrollLeft;
-
-          slider.classList.add("is-card-dragging");
-          document.body.classList.add("is-card-slider-dragging");
-
-          stopAuto();
-        },
-        { passive: true }
-      );
-
-      slider.addEventListener(
-        "touchmove",
-        function (e) {
-          if (!isDown || !e.touches || !e.touches.length) return;
-
-          const walk = e.touches[0].clientX - startX;
-
-          if (Math.abs(walk) > 1) {
-            moved = true;
-            e.preventDefault();
-          }
-
-          slider.scrollLeft = startScrollLeft - walk;
-        },
-        { passive: false }
-      );
-
-      slider.addEventListener("touchend", dragEnd);
-      slider.addEventListener("touchcancel", dragEnd);
-
-      $slider.on("click", "a", function (e) {
-        if (moved) {
-          e.preventDefault();
-          e.stopImmediatePropagation();
-        }
-      });
-
-      section.addEventListener("mouseenter", function () {
-        hover = true;
-        stopAuto();
-      });
-
-      section.addEventListener("mouseleave", function () {
-        hover = false;
-        if (!isDown) startAuto();
-      });
-
-      $(section).find(".projects-prev").off("click.cardDrag").on("click.cardDrag", function () {
-        slider.scrollBy({ left: -cardStep(), behavior: "smooth" });
-      });
-
-      $(section).find(".projects-next").off("click.cardDrag").on("click.cardDrag", function () {
-        slider.scrollBy({ left: cardStep(), behavior: "smooth" });
-      });
-
-      startAuto();
-    }
-
-    initCardDragSlider(".product-applications-section");
-    initCardDragSlider(".who-we-serve-section");
+    initSlickSlider({
+      slider: ".projects-autoplay",
+      prevBtn: ".projects-prev",
+      nextBtn: ".projects-next",
+      settings: {
+        variableWidth: true,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        autoplay: true,
+        arrows: false,
+        dots: false,
+        pauseOnHover: false,
+        pauseOnFocus: false,
+        autoplaySpeed: 3000,
+        speed: 1500,
+        responsive: [
+          { breakpoint: 992, settings: { slidesToShow: 2 } },
+          { breakpoint: 451, settings: { slidesToShow: 1 } },
+        ],
+      },
+    });
   });
   // our testimonial section
   $(function () {
@@ -524,8 +303,8 @@ $slider
       slidesToShow: 1,
       slidesToScroll: 1,
       autoplay: true,
-      autoplaySpeed: 4000,
-      speed: 280,
+      autoplaySpeed: 3000,
+      speed: 1500,
       arrows: false,
       infinite: true,
       pauseOnHover: false,
@@ -563,8 +342,8 @@ $slider
         dots: false,
         pauseOnHover: false,
         pauseOnFocus: false,
-        autoplaySpeed: 4000,
-        speed: 280,
+        autoplaySpeed: 3000,
+        speed: 1500,
         variableWidth: true,
         responsive: [
           {
@@ -597,8 +376,8 @@ $slider
         dots: false,
         pauseOnHover: false,
         pauseOnFocus: false,
-        autoplaySpeed: 4000,
-        speed: 280,
+        autoplaySpeed: 3000,
+        speed: 1500,
         responsive: [{ breakpoint: 768, settings: { slidesToShow: 1 } }],
       },
     });
@@ -705,7 +484,7 @@ $slider
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 4000,
+    autoplaySpeed: 3000,
     speed: 2000,
     arrows: false,
     dots: false,
@@ -728,7 +507,7 @@ $slider
         slidesToScroll: 1,
         arrows: false,
         dots: false,
-        speed: 280,
+        speed: 1500,
         variableWidth: true,
         infinite: false,
         responsive: [

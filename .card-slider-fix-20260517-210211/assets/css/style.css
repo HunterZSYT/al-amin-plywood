@@ -9640,6 +9640,7 @@ body {
   overflow-x: auto;
   overflow-y: hidden;
   scroll-behavior: smooth;
+  scroll-snap-type: x proximity;
   scrollbar-width: none;
   cursor: grab;
   user-select: none;
@@ -9653,22 +9654,17 @@ body {
   display: none;
 }
 
-.product-applications-section .projects-autoplay.is-card-dragging,
-.who-we-serve-section .projects-autoplay.is-card-dragging {
+.product-applications-section .projects-autoplay.is-native-dragging,
+.who-we-serve-section .projects-autoplay.is-native-dragging {
   cursor: grabbing;
   scroll-behavior: auto;
-}
-
-.product-applications-section .projects-autoplay.is-card-dragging .projects-card,
-.who-we-serve-section .projects-autoplay.is-card-dragging .projects-card {
-  pointer-events: none;
 }
 
 .product-applications-section .projects-card,
 .who-we-serve-section .projects-card {
   flex: 0 0 calc((100% - 60px) / 3);
   max-width: calc((100% - 60px) / 3);
-  min-width: calc((100% - 60px) / 3);
+  scroll-snap-align: start;
 }
 
 .product-applications-section .our-projects-img,
@@ -9677,16 +9673,11 @@ body {
   -webkit-user-drag: none;
 }
 
-body.is-card-slider-dragging {
-  cursor: grabbing;
-}
-
 @media (max-width: 991.98px) {
   .product-applications-section .projects-card,
   .who-we-serve-section .projects-card {
     flex-basis: calc((100% - 30px) / 2);
     max-width: calc((100% - 30px) / 2);
-    min-width: calc((100% - 30px) / 2);
   }
 }
 
@@ -9695,6 +9686,5 @@ body.is-card-slider-dragging {
   .who-we-serve-section .projects-card {
     flex-basis: 100%;
     max-width: 100%;
-    min-width: 100%;
   }
 }

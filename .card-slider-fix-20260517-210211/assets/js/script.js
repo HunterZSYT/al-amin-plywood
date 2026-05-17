@@ -348,35 +348,36 @@ $slider
   }
   // projects slider section
   $(function () {
-    function initCardDragSlider(sectionSelector) {
-      const section = document.querySelector(sectionSelector);
-      if (!section) return;
+    function initNativeCardSlider(sectionSelector) {
+      const $section = $(sectionSelector);
+      const $slider = $section.find(".projects-autoplay");
 
-      const slider = section.querySelector(".projects-autoplay");
-      if (!slider) return;
-
-      const $slider = $(slider);
+      if (!$slider.length) return;
 
       if ($slider.hasClass("slick-initialized")) {
         $slider.slick("unslick");
       }
 
-      let isDown = false;
+      if ($slider.attr("data-native-drag-ready") === "true") return;
+      $slider.attr("data-native-drag-ready", "true");
+
+      const slider = $slider[0];
+      let isDragging = false;
+      let isHovering = false;
       let startX = 0;
       let startScrollLeft = 0;
-      let moved = false;
-      let hover = false;
+      let hasMoved = false;
       let autoTimer = null;
 
-      function cardStep() {
-        const card = slider.querySelector(".projects-card");
-        if (!card) return slider.clientWidth * 0.8;
+      function getStep() {
+        const firstCard = slider.querySelector(".projects-card");
+        if (!firstCard) return slider.clientWidth * 0.85;
 
-        const rect = card.getBoundingClientRect();
-        const style = window.getComputedStyle(slider);
-        const gap = parseFloat(style.gap || style.columnGap || "30") || 30;
+        const cardRect = firstCard.getBoundingClientRect();
+        const styles = window.getComputedStyle(slider);
+        const gap = parseFloat(styles.columnGap || styles.gap || 0) || 0;
 
-        return rect.width + gap;
+        return cardRect.width + gap;
       }
 
       function stopAuto() {
@@ -388,133 +389,103 @@ $slider
 
       function startAuto() {
         stopAuto();
-        if (isDown || hover) return;
+
+        if (isDragging || isHovering) return;
 
         autoTimer = setInterval(function () {
+          const step = getStep();
           const maxScroll = slider.scrollWidth - slider.clientWidth;
-          if (slider.scrollLeft >= maxScroll - 10) {
+
+          if (slider.scrollLeft >= maxScroll - 5) {
             slider.scrollTo({ left: 0, behavior: "smooth" });
           } else {
-            slider.scrollBy({ left: cardStep(), behavior: "smooth" });
+            slider.scrollBy({ left: step, behavior: "smooth" });
           }
         }, 4200);
       }
 
-      function dragStart(e) {
-        if (e.button !== undefined && e.button !== 0) return;
-
-        isDown = true;
-        moved = false;
-        startX = e.clientX;
+      slider.addEventListener("pointerdown", function (event) {
+        isDragging = true;
+        hasMoved = false;
+        startX = event.clientX;
         startScrollLeft = slider.scrollLeft;
-
-        slider.classList.add("is-card-dragging");
-        document.body.classList.add("is-card-slider-dragging");
-
+        slider.classList.add("is-native-dragging");
         stopAuto();
-        e.preventDefault();
-      }
 
-      function dragMove(e) {
-        if (!isDown) return;
+        if (slider.setPointerCapture) {
+          slider.setPointerCapture(event.pointerId);
+        }
+      });
 
-        const x = e.clientX;
-        const walk = x - startX;
+      slider.addEventListener("pointermove", function (event) {
+        if (!isDragging) return;
 
-        if (Math.abs(walk) > 1) {
-          moved = true;
+        const dragX = event.clientX - startX;
+
+        if (Math.abs(dragX) > 1) {
+          hasMoved = true;
+          event.preventDefault();
         }
 
-        slider.scrollLeft = startScrollLeft - walk;
-        e.preventDefault();
-      }
+        slider.scrollLeft = startScrollLeft - dragX;
+      });
 
-      function dragEnd() {
-        if (!isDown) return;
+      function endDrag(event) {
+        if (!isDragging) return;
 
-        isDown = false;
-        slider.classList.remove("is-card-dragging");
-        document.body.classList.remove("is-card-slider-dragging");
+        isDragging = false;
+        slider.classList.remove("is-native-dragging");
+
+        try {
+          if (slider.releasePointerCapture) {
+            slider.releasePointerCapture(event.pointerId);
+          }
+        } catch (error) {}
 
         setTimeout(function () {
-          moved = false;
+          hasMoved = false;
         }, 120);
 
         startAuto();
       }
 
-      slider.addEventListener("mousedown", dragStart);
-      document.addEventListener("mousemove", dragMove);
-      document.addEventListener("mouseup", dragEnd);
+      slider.addEventListener("pointerup", endDrag);
+      slider.addEventListener("pointercancel", endDrag);
+      slider.addEventListener("mouseleave", function () {
+        if (isDragging) return;
+        slider.classList.remove("is-native-dragging");
+      });
 
-      slider.addEventListener(
-        "touchstart",
-        function (e) {
-          if (!e.touches || !e.touches.length) return;
-
-          isDown = true;
-          moved = false;
-          startX = e.touches[0].clientX;
-          startScrollLeft = slider.scrollLeft;
-
-          slider.classList.add("is-card-dragging");
-          document.body.classList.add("is-card-slider-dragging");
-
-          stopAuto();
-        },
-        { passive: true }
-      );
-
-      slider.addEventListener(
-        "touchmove",
-        function (e) {
-          if (!isDown || !e.touches || !e.touches.length) return;
-
-          const walk = e.touches[0].clientX - startX;
-
-          if (Math.abs(walk) > 1) {
-            moved = true;
-            e.preventDefault();
-          }
-
-          slider.scrollLeft = startScrollLeft - walk;
-        },
-        { passive: false }
-      );
-
-      slider.addEventListener("touchend", dragEnd);
-      slider.addEventListener("touchcancel", dragEnd);
-
-      $slider.on("click", "a", function (e) {
-        if (moved) {
-          e.preventDefault();
-          e.stopImmediatePropagation();
+      $slider.on("click", "a", function (event) {
+        if (hasMoved) {
+          event.preventDefault();
+          event.stopImmediatePropagation();
         }
       });
 
-      section.addEventListener("mouseenter", function () {
-        hover = true;
+      $section.on("mouseenter", function () {
+        isHovering = true;
         stopAuto();
       });
 
-      section.addEventListener("mouseleave", function () {
-        hover = false;
-        if (!isDown) startAuto();
+      $section.on("mouseleave", function () {
+        isHovering = false;
+        startAuto();
       });
 
-      $(section).find(".projects-prev").off("click.cardDrag").on("click.cardDrag", function () {
-        slider.scrollBy({ left: -cardStep(), behavior: "smooth" });
+      $section.find(".projects-prev").on("click", function () {
+        slider.scrollBy({ left: -getStep(), behavior: "smooth" });
       });
 
-      $(section).find(".projects-next").off("click.cardDrag").on("click.cardDrag", function () {
-        slider.scrollBy({ left: cardStep(), behavior: "smooth" });
+      $section.find(".projects-next").on("click", function () {
+        slider.scrollBy({ left: getStep(), behavior: "smooth" });
       });
 
       startAuto();
     }
 
-    initCardDragSlider(".product-applications-section");
-    initCardDragSlider(".who-we-serve-section");
+    initNativeCardSlider(".product-applications-section");
+    initNativeCardSlider(".who-we-serve-section");
   });
   // our testimonial section
   $(function () {
