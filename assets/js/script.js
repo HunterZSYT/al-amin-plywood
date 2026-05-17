@@ -564,7 +564,9 @@
         const img = this.querySelector("img");
         const caption =
           this.dataset.name ||
-          this.querySelector(".projects3-overlay-content h3")?.textContent?.trim() ||
+          this.querySelector(
+            ".projects3-overlay-content h3",
+          )?.textContent?.trim() ||
           img?.alt ||
           "";
         openImageViewer(img, caption);
