@@ -227,6 +227,17 @@ a {
   transform: translateY(0) scale(1);
 }
 /************************ 4. Header CSS ***************************/
+.menu-overlay {
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s ease-in-out;
+  z-index: 9998;
+}
+.menu-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
 .top-navbar.sticky {
   position: fixed;
   top: 0;
@@ -9751,41 +9762,5 @@ body.is-card-slider-dragging {
     flex-basis: 100% !important;
     max-width: 100% !important;
     min-width: 100% !important;
-  }
-}
-
-html.menu-open,
-body.menu-open {
-  overflow: hidden !important;
-  height: 100% !important;
-  touch-action: none !important;
-}
-
-.menu-overlay {
-  position: fixed !important;
-  inset: 0 !important;
-  width: 100vw !important;
-  height: 100vh !important;
-  background: rgba(0, 0, 0, 0.62) !important;
-  opacity: 0 !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
-  transition: opacity 0.28s ease, visibility 0.28s ease !important;
-  z-index: 9990 !important;
-}
-
-.menu-overlay.active {
-  opacity: 1 !important;
-  visibility: visible !important;
-  pointer-events: auto !important;
-}
-
-@media screen and (max-width: 1199px) {
-  .mobile-nav {
-    z-index: 9999 !important;
-  }
-
-  .top-navbar {
-    z-index: 10000 !important;
   }
 }
