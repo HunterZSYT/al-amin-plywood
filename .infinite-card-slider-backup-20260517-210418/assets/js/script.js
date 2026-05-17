@@ -348,7 +348,7 @@ $slider
   }
   // projects slider section
   $(function () {
-    function initInfiniteCardSlider(sectionSelector) {
+    function initCardDragSlider(sectionSelector) {
       const section = document.querySelector(sectionSelector);
       if (!section) return;
 
@@ -361,71 +361,15 @@ $slider
         $slider.slick("unslick");
       }
 
-      slider.querySelectorAll("[data-slider-clone='true']").forEach(function (clone) {
-        clone.remove();
-      });
-
-      const originalCards = Array.from(slider.children);
-
-      if (!originalCards.length) return;
-
-      originalCards.forEach(function (card) {
-        card.setAttribute("data-slider-original", "true");
-      });
-
-      const beforeClones = originalCards.map(function (card) {
-        const clone = card.cloneNode(true);
-        clone.setAttribute("data-slider-clone", "true");
-        clone.removeAttribute("data-slider-original");
-        return clone;
-      });
-
-      const afterClones = originalCards.map(function (card) {
-        const clone = card.cloneNode(true);
-        clone.setAttribute("data-slider-clone", "true");
-        clone.removeAttribute("data-slider-original");
-        return clone;
-      });
-
-      beforeClones.reverse().forEach(function (clone) {
-        slider.insertBefore(clone, slider.firstChild);
-      });
-
-      afterClones.forEach(function (clone) {
-        slider.appendChild(clone);
-      });
-
       let isDown = false;
       let startX = 0;
-      let lastX = 0;
+      let startScrollLeft = 0;
       let moved = false;
       let hover = false;
       let autoTimer = null;
 
-      function groupWidth() {
-        return slider.scrollWidth / 3;
-      }
-
-      function setMiddlePosition() {
-        slider.scrollLeft = groupWidth();
-      }
-
-      function normalizeLoopPosition() {
-        const width = groupWidth();
-
-        if (!width) return;
-
-        if (slider.scrollLeft < width * 0.5) {
-          slider.scrollLeft += width;
-        }
-
-        if (slider.scrollLeft > width * 1.5) {
-          slider.scrollLeft -= width;
-        }
-      }
-
       function cardStep() {
-        const card = slider.querySelector("[data-slider-original='true']");
+        const card = slider.querySelector(".projects-card");
         if (!card) return slider.clientWidth * 0.8;
 
         const rect = card.getBoundingClientRect();
@@ -444,15 +388,15 @@ $slider
 
       function startAuto() {
         stopAuto();
-
         if (isDown || hover) return;
 
         autoTimer = setInterval(function () {
-          slider.scrollBy({ left: cardStep(), behavior: "smooth" });
-
-          setTimeout(function () {
-            normalizeLoopPosition();
-          }, 520);
+          const maxScroll = slider.scrollWidth - slider.clientWidth;
+          if (slider.scrollLeft >= maxScroll - 10) {
+            slider.scrollTo({ left: 0, behavior: "smooth" });
+          } else {
+            slider.scrollBy({ left: cardStep(), behavior: "smooth" });
+          }
         }, 4200);
       }
 
@@ -462,7 +406,7 @@ $slider
         isDown = true;
         moved = false;
         startX = e.clientX;
-        lastX = e.clientX;
+        startScrollLeft = slider.scrollLeft;
 
         slider.classList.add("is-card-dragging");
         document.body.classList.add("is-card-slider-dragging");
@@ -474,16 +418,14 @@ $slider
       function dragMove(e) {
         if (!isDown) return;
 
-        const delta = e.clientX - lastX;
-        lastX = e.clientX;
+        const x = e.clientX;
+        const walk = x - startX;
 
-        if (Math.abs(e.clientX - startX) > 1) {
+        if (Math.abs(walk) > 1) {
           moved = true;
         }
 
-        slider.scrollLeft -= delta;
-        normalizeLoopPosition();
-
+        slider.scrollLeft = startScrollLeft - walk;
         e.preventDefault();
       }
 
@@ -493,8 +435,6 @@ $slider
         isDown = false;
         slider.classList.remove("is-card-dragging");
         document.body.classList.remove("is-card-slider-dragging");
-
-        normalizeLoopPosition();
 
         setTimeout(function () {
           moved = false;
@@ -515,7 +455,7 @@ $slider
           isDown = true;
           moved = false;
           startX = e.touches[0].clientX;
-          lastX = e.touches[0].clientX;
+          startScrollLeft = slider.scrollLeft;
 
           slider.classList.add("is-card-dragging");
           document.body.classList.add("is-card-slider-dragging");
@@ -530,17 +470,14 @@ $slider
         function (e) {
           if (!isDown || !e.touches || !e.touches.length) return;
 
-          const x = e.touches[0].clientX;
-          const delta = x - lastX;
-          lastX = x;
+          const walk = e.touches[0].clientX - startX;
 
-          if (Math.abs(x - startX) > 1) {
+          if (Math.abs(walk) > 1) {
             moved = true;
             e.preventDefault();
           }
 
-          slider.scrollLeft -= delta;
-          normalizeLoopPosition();
+          slider.scrollLeft = startScrollLeft - walk;
         },
         { passive: false }
       );
@@ -548,7 +485,7 @@ $slider
       slider.addEventListener("touchend", dragEnd);
       slider.addEventListener("touchcancel", dragEnd);
 
-      $slider.off("click.cardDrag").on("click.cardDrag", "a", function (e) {
+      $slider.on("click", "a", function (e) {
         if (moved) {
           e.preventDefault();
           e.stopImmediatePropagation();
@@ -567,32 +504,17 @@ $slider
 
       $(section).find(".projects-prev").off("click.cardDrag").on("click.cardDrag", function () {
         slider.scrollBy({ left: -cardStep(), behavior: "smooth" });
-
-        setTimeout(function () {
-          normalizeLoopPosition();
-        }, 520);
       });
 
       $(section).find(".projects-next").off("click.cardDrag").on("click.cardDrag", function () {
         slider.scrollBy({ left: cardStep(), behavior: "smooth" });
-
-        setTimeout(function () {
-          normalizeLoopPosition();
-        }, 520);
       });
 
-      requestAnimationFrame(function () {
-        setMiddlePosition();
-        startAuto();
-      });
-
-      window.addEventListener("resize", function () {
-        setMiddlePosition();
-      });
+      startAuto();
     }
 
-    initInfiniteCardSlider(".product-applications-section");
-    initInfiniteCardSlider(".who-we-serve-section");
+    initCardDragSlider(".product-applications-section");
+    initCardDragSlider(".who-we-serve-section");
   });
   // our testimonial section
   $(function () {
