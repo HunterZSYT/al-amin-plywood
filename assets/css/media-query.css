@@ -1,3 +1,19 @@
+:root {
+  --brand-green: #0f542b;
+  --brand-green-dark: #0b351e;
+  --brand-red: #9f221f;
+  --brand-red-dark: #7f1918;
+  --brand-surface: #eef4ee;
+  --brand-muted: #5f7567;
+  --brand-text: #13251a;
+  --brand-white: #ffffff;
+  --brand-green-rgb: 15, 84, 43;
+  --brand-green-dark-rgb: 11, 53, 30;
+  --brand-red-rgb: 159, 34, 31;
+  --brand-surface-rgb: 238, 244, 238;
+  --brand-muted-rgb: 95, 117, 103;
+  --brand-text-rgb: 19, 37, 26;
+}
 @media (min-width: 1650px) {
   .container,
   .container-lg,
@@ -251,7 +267,7 @@
     z-index: 9999;
     overflow-y: auto;
     scrollbar-width: none;
-    background: rgba(54, 39, 22, 1);
+    background: var(--brand-green-dark);
   }
   .mobile-nav::-webkit-scrollbar {
     display: none;
@@ -296,12 +312,15 @@
   .menu li a {
     border-radius: 6px;
     padding: 10px 0;
+    color: var(--brand-green-dark);
+    font-weight: 600;
   }
   .menu .dropdown a {
     justify-content: space-between;
     width: 100%;
     font-size: 18px;
-    color: #fff;
+    color: var(--brand-green-dark);
+    font-weight: 600;
     transition: all 0.3s ease-in-out;
   }
   .submenu {
@@ -316,7 +335,7 @@
     box-shadow: none;
     border-right: none;
     border-bottom: none;
-    background: rgba(131, 107, 85, 1);
+    background: var(--brand-muted);
   }
   .submenu.open {
     display: block;
@@ -348,7 +367,7 @@
     display: block;
   }
   .submenu-right li {
-    background-color: rgba(131, 107, 85, 1);
+    background-color: var(--brand-muted);
     border-radius: 0;
   }
   .submenu-right li a:first-child {
@@ -360,9 +379,13 @@
   .dropdown-sub:hover .submenu-right li a {
     color: #fff;
   }
+  .menu .dropdown a:hover,
+  .menu .dropdown a.active-link {
+    color: var(--brand-red);
+  }
   .submenu li:hover a,
   .submenu li a.active-submenu-link {
-    color: rgba(197, 133, 58, 1);
+    color: var(--brand-red);
   }
   .dropdown-sub:hover .submenu-arrow {
     filter: brightness(0) saturate(100%) invert(77%) sepia(8%) saturate(4234%)
@@ -385,7 +408,7 @@
     display: none;
   }
   .responsive-get-free-quote-btn {
-    background: rgba(197, 133, 58, 1);
+    background: var(--brand-red);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -393,7 +416,7 @@
     transition: background 0.3s ease-in-out;
   }
   .responsive-get-free-quote-btn:hover {
-    border: 2px solid rgba(197, 133, 58, 1);
+    border: 2px solid var(--brand-red);
     background: transparent;
     color: #fff;
   }
@@ -4491,7 +4514,7 @@
     width: 100%;
     border-radius: 22px;
     overflow: hidden;
-    box-shadow: 0 18px 45px rgba(54, 39, 22, 0.12);
+    box-shadow: 0 18px 45px rgba(var(--brand-green-dark-rgb), 0.12);
   }
 
   .about-us-left-image-container > img:first-child {

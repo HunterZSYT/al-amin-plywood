@@ -542,4 +542,33 @@
       }
     });
   });
+  // Product, plywood, and gallery image viewer
+  $(function () {
+    if (typeof Fancybox === "undefined") return;
+
+    const openImageViewer = (img, caption) => {
+      if (!img || !img.src) return;
+      Fancybox.show([
+        {
+          src: img.currentSrc || img.src,
+          type: "image",
+          caption: caption || img.alt || "",
+        },
+      ]);
+    };
+
+    $(document).on(
+      "click",
+      ".projects3-image-container:not(a), .plywood-card-3d",
+      function (e) {
+        const img = this.querySelector("img");
+        const caption =
+          this.dataset.name ||
+          this.querySelector(".projects3-overlay-content h3")?.textContent?.trim() ||
+          img?.alt ||
+          "";
+        openImageViewer(img, caption);
+      },
+    );
+  });
 })(jQuery);

@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -31,7 +31,7 @@
         class="wood-circle position-relative d-flex flex-column align-items-center justify-content-center"
       >
         <div class="saw-blade position-absolute"></div>
-        <img src="./assets/images/header/favicon.png" alt="favicon" />
+        <img src="./assets/images/header/header-logo.svg" alt="Al-Amin Plywood Industries Ltd. logo" />
       </div>
     </div>
     <div class="menu-overlay position-fixed top-0 start-0 w-100 h-100"></div>
@@ -39,8 +39,12 @@
     <header
       class="top-navbar position-fixed top-0 start-0 end-0 d-flex align-items-center justify-content-between"
     >
-      <a href="./index.html" class="header-logo">
-        <img src="./assets/images/header/header-logo.svg" alt="header-logo" />
+      <a href="./index.html" class="header-logo brand-lockup" aria-label="Al-Amin Plywood Industries Ltd. home">
+        <img src="./assets/images/header/header-logo.svg" alt="Al-Amin Plywood Industries Ltd. logo" />
+        <span class="brand-wordmark" aria-hidden="true">
+          <span class="brand-wordmark-main">Al-Amin Plywood</span>
+          <span class="brand-wordmark-sub">Industries Ltd.</span>
+        </span>
       </a>
       <a href="javascript:void(0);" class="menu-toggle">
         <img src="./assets/images/header/menu-toggle.svg" alt="menu-toggle" />
@@ -48,11 +52,15 @@
       <div class="mobile-nav d-flex align-items-center">
         <div class="mobile-nav-top-content">
           <div class="menu-toggle-logo-close-icon">
-            <a href="./index.html" class="header-logo">
+            <a href="./index.html" class="header-logo brand-lockup" aria-label="Al-Amin Plywood Industries Ltd. home">
               <img
                 src="./assets/images/header/menu-header-logo.svg"
-                alt="menu-header-logo"
+                alt="Al-Amin Plywood Industries Ltd. logo"
               />
+              <span class="brand-wordmark" aria-hidden="true">
+                <span class="brand-wordmark-main">Al-Amin Plywood</span>
+                <span class="brand-wordmark-sub">Industries Ltd.</span>
+              </span>
             </a>
             <img
               src="./assets/images/header/close-icon.svg"
@@ -75,6 +83,12 @@
             </li>
             <li class="dropdown position-relative">
               <a href="./products.html">Products</a>
+            </li>
+            <li class="dots-circle-li">
+              <div class="dots-circle"></div>
+            </li>
+            <li class="dropdown position-relative">
+              <a href="./gallery.html">Gallery</a>
             </li>
             <li class="dots-circle-li">
               <div class="dots-circle"></div>
@@ -140,7 +154,7 @@
                 <div
                   class="hero1-trust-icon-container d-flex align-items-center justify-content-center"
                 >
-                  <span class="hero1-trust-icon">✓</span>
+                  <span class="hero1-trust-icon">&#10003;</span>
                 </div>
 
                 <div
@@ -193,7 +207,7 @@
                 <div
                   class="hero1-trust-icon-container d-flex align-items-center justify-content-center"
                 >
-                  <span class="hero1-trust-icon">✓</span>
+                  <span class="hero1-trust-icon">&#10003;</span>
                 </div>
 
                 <div
@@ -256,7 +270,7 @@
                 <div
                   class="hero1-trust-icon-container d-flex align-items-center justify-content-center"
                 >
-                  <span class="hero1-trust-icon">✓</span>
+                  <span class="hero1-trust-icon">&#10003;</span>
                 </div>
 
                 <div
@@ -511,11 +525,23 @@
       </div>
 
       <div class="plywood-3d-carousel">
-        <button class="plywood-nav prev" onclick="rotatePlywood(-1)">‹</button>
+        <button
+          class="plywood-nav prev"
+          onclick="rotatePlywood(-1)"
+          aria-label="Previous plywood"
+        >
+          &lsaquo;
+        </button>
 
         <div class="plywood-stage" id="plywoodStage"></div>
 
-        <button class="plywood-nav next" onclick="rotatePlywood(1)">›</button>
+        <button
+          class="plywood-nav next"
+          onclick="rotatePlywood(1)"
+          aria-label="Next plywood"
+        >
+          &rsaquo;
+        </button>
       </div>
 
       <div class="plywood-selected-box">
@@ -1721,7 +1747,7 @@
                   <div
                     class="our-testimonial-white-circle rounded-circle d-flex align-items-center justify-content-center position-absolute top-50 start-50 translate-middle"
                   >
-                    <span class="serve-icon">🏗</span>
+                    <span class="serve-icon">&#127959;</span>
                   </div>
                   <div
                     class="our-testimonial-contents d-flex flex-column align-items-center position-absolute bottom-0"
@@ -1735,7 +1761,7 @@
                   <div
                     class="our-testimonial-white-circle rounded-circle d-flex align-items-center justify-content-center position-absolute top-50 start-50 translate-middle"
                   >
-                    <span class="serve-icon">🪵</span>
+                    <span class="serve-icon">&#129717;</span>
                   </div>
                   <div
                     class="our-testimonial-contents d-flex flex-column align-items-center position-absolute bottom-0"
@@ -1749,7 +1775,7 @@
                   <div
                     class="our-testimonial-white-circle rounded-circle d-flex align-items-center justify-content-center position-absolute top-50 start-50 translate-middle"
                   >
-                    <span class="serve-icon">🪑</span>
+                    <span class="serve-icon">&#129681;</span>
                   </div>
                   <div
                     class="our-testimonial-contents d-flex flex-column align-items-center position-absolute bottom-0"
@@ -1763,7 +1789,7 @@
                   <div
                     class="our-testimonial-white-circle rounded-circle d-flex align-items-center justify-content-center position-absolute top-50 start-50 translate-middle"
                   >
-                    <span class="serve-icon">🏢</span>
+                    <span class="serve-icon">&#127970;</span>
                   </div>
                   <div
                     class="our-testimonial-contents d-flex flex-column align-items-center position-absolute bottom-0"
@@ -2273,7 +2299,7 @@
                   aria-expanded="true"
                   aria-controls="collapseOne"
                 >
-                  Q1. Can you assist with creative ideas if I’m not sure what
+                  Q1. Can you assist with creative ideas if I&rsquo;m not sure what
                   fits?
                 </button>
               </h2>
@@ -3154,6 +3180,7 @@
                 <li><a href="./index.html">Home</a></li>
                 <li><a href="./about.html">About Us</a></li>
                 <li><a href="./products.html">Products</a></li>
+                <li><a href="./gallery.html">Gallery</a></li>
                 <li><a href="./contact.html">Contact Us</a></li>
               </ul>
             </div>
@@ -3175,7 +3202,7 @@
 
           <div class="footer-bottom">
             <p class="mb-0">
-              Copyright © 2026 Al-Amin Plywood Industries Ltd. All Rights
+              Copyright &copy; 2026 Al-Amin Plywood Industries Ltd. All Rights
               Reserved.
             </p>
 
@@ -3223,28 +3250,84 @@
       document.addEventListener("DOMContentLoaded", function () {
         const plywoodItems = [
           {
-            name: "Oak Plywood",
-            image: "./assets/images/plywood/oak-plywood.jpg",
+            name: "Gorjon Plywood",
+            image: "./assets/images/our-projects/our-projects-img1.png",
           },
           {
-            name: "Walnut Plywood",
-            image: "./assets/images/plywood/walnut-plywood.jpg",
+            name: "Gorjon Gold Plywood",
+            image: "./assets/images/our-projects/our-projects-img2.png",
           },
           {
-            name: "Birch Plywood",
-            image: "./assets/images/plywood/birch-plywood.jpg",
+            name: "Gorjon Marine Plywood",
+            image: "./assets/images/our-projects/our-projects-img3.png",
           },
           {
-            name: "Marine Plywood",
-            image: "./assets/images/plywood/marine-plywood.jpg",
+            name: "Gorjon Premium (MR Grade) Plywood",
+            image: "./assets/images/our-projects/our-projects-img4.png",
           },
           {
-            name: "Teak Plywood",
-            image: "./assets/images/plywood/teak-plywood.jpg",
+            name: "Crown Teak Gorjon Plywood",
+            image: "./assets/images/our-projects/our-projects-img5.png",
           },
           {
-            name: "Maple Plywood",
-            image: "./assets/images/plywood/maple-plywood.jpg",
+            name: "Crown Teak Gold Plywood",
+            image: "./assets/images/our-projects/our-projects-img6.png",
+          },
+          {
+            name: "Crown Teak Marine Plywood",
+            image: "./assets/images/our-projects/our-projects-img7.png",
+          },
+          {
+            name: "Amberteak Gorjon Plywood",
+            image: "./assets/images/our-projects/our-projects-img8.png",
+          },
+          {
+            name: "Amberteak Gold Plywood",
+            image: "./assets/images/our-projects/our-projects-img9.jpg",
+          },
+          {
+            name: "Amberteak Marine Plywood",
+            image: "./assets/images/our-projects/our-projects-img10.jpg",
+          },
+          {
+            name: "EngineerTeak Gorjon Plywood",
+            image: "./assets/images/our-projects/our-projects-img11.jpg",
+          },
+          {
+            name: "EngineerTeak Gold Plywood",
+            image: "./assets/images/our-projects/our-projects-img12.jpg",
+          },
+          {
+            name: "EngineerTeak Marine Plywood",
+            image: "./assets/images/our-projects/our-projects-img13.jpg",
+          },
+          {
+            name: "Burma Teak Gorjon Plywood",
+            image: "./assets/images/our-projects/our-projects-img14.jpg",
+          },
+          {
+            name: "Burma Teak Gold Plywood",
+            image: "./assets/images/our-projects/our-projects-img15.jpg",
+          },
+          {
+            name: "Burma Teak Marine Plywood",
+            image: "./assets/images/our-projects/our-projects-img16.jpg",
+          },
+          {
+            name: "Flexible Gorjon Plywood",
+            image: "./assets/images/our-projects/our-projects-img17.jpg",
+          },
+          {
+            name: "Redoak Gorjon Plywood",
+            image: "./assets/images/our-projects/our-projects-img18.jpg",
+          },
+          {
+            name: "Redoak Gold Plywood",
+            image: "./assets/images/our-projects/our-projects-img19.jpg",
+          },
+          {
+            name: "Recon Plywood",
+            image: "./assets/images/our-projects/our-projects-img20.jpg",
           },
         ];
 
@@ -3520,3 +3603,5 @@
     </script>
   </body>
 </html>
+
+
