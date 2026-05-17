@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -22,7 +22,39 @@
     <link rel="stylesheet" href="./assets/css/slick.css" />
     <link rel="stylesheet" href="./assets/css/slick-theme.css" />
     <link rel="stylesheet" href="./assets/css/style.css" />
-    <link rel="stylesheet" href="./assets/css/media-query.css" /></head>
+    <link rel="stylesheet" href="./assets/css/media-query.css" />
+  <!-- Our Team Center Alignment Fix - injected by ChatGPT -->
+<style>
+.our-team-section .our-team-grid-container {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  align-items: stretch !important;
+  gap: 30px !important;
+  max-width: 1120px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.our-team-section .our-team-grid-container > * {
+  width: 280px !important;
+  max-width: 100% !important;
+}
+
+@media (max-width: 991px) {
+  .our-team-section .our-team-grid-container {
+    max-width: 720px !important;
+  }
+}
+
+@media (max-width: 575px) {
+  .our-team-section .our-team-grid-container > * {
+    width: 100% !important;
+  }
+}
+</style>
+<!-- End Our Team Center Alignment Fix -->
+</head>
 
   <body>
     <!-- ====================================== Preloader ===================================== -->
@@ -1797,5 +1829,4 @@
     </script>
   </body>
 </html>
-
 
