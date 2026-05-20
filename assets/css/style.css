@@ -1,7 +1,6 @@
 /*------------------------------------------------------------------
-Project: Home Rakshak - Carpentry Service
-Author: -      
-Primary use: - Expert Carpentry for Safe Homes
+Project: Al Amin Plywood
+Author: - Dots IT and Software Limited
 -------------------------------------------------------------------*/
 :root {
   --brand-green: #0f542b;
@@ -1465,6 +1464,7 @@ header {
     width: 52px !important;
     height: 52px !important;
     opacity: 0.9 !important;
+	animation: spin 4s linear infinite;
   }
 
   .our-story-section {
@@ -6817,7 +6817,7 @@ header.top-navbar {
   }
 
   .hero-1-section {
-    margin: 105px 12px 0 12px !important;
+    margin: 118px 12px 0 12px !important;
     max-width: calc(100% - 24px) !important;
     border-radius: 16px !important;
   }
@@ -7369,6 +7369,7 @@ header.top-navbar {
   .infinite-scroll-slider1 img {
     width: 30px !important;
     height: 30px !important;
+	animation: spin 4s linear infinite;
   }
 }
 
@@ -8482,26 +8483,28 @@ footer,
   .header-logo.brand-lockup {
     width: auto !important;
     min-width: 0;
-    max-width: calc(100% - 62px);
+    max-width: calc(100% - 70px);
     height: 66px !important;
-    gap: 8px;
+    gap: 9px;
   }
 
   .header-logo.brand-lockup img {
-    width: 92px !important;
-    max-width: 92px !important;
+    width: 78px !important;
+    max-width: 78px !important;
     max-height: 66px !important;
   }
 
   .brand-wordmark-main {
-    font-size: 15px;
-    max-width: 142px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-size: 16px;
+    max-width: none;
+    overflow: visible;
+    text-overflow: clip;
   }
 
   .brand-wordmark-sub {
-    display: none;
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.06em;
   }
 
   .top-navbar.sticky .header-logo.brand-lockup {
@@ -8511,13 +8514,17 @@ footer,
   }
 
   .top-navbar.sticky .header-logo.brand-lockup img {
-    width: 82px !important;
-    max-width: 82px !important;
+    width: 72px !important;
+    max-width: 72px !important;
     max-height: 56px !important;
   }
 
   .top-navbar.sticky .brand-wordmark-main {
-    font-size: 14px;
+    font-size: 15px;
+  }
+
+  .top-navbar.sticky .brand-wordmark-sub {
+    font-size: 9px;
   }
 
   .mobile-nav {
@@ -8529,13 +8536,19 @@ footer,
 
 @media (max-width: 420px) {
   .brand-wordmark-main {
-    max-width: 110px;
+    max-width: none;
     font-size: 14px;
   }
 
+  .brand-wordmark-sub {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 0.05em;
+  }
+
   .header-logo.brand-lockup img {
-    width: 84px !important;
-    max-width: 84px !important;
+    width: 70px !important;
+    max-width: 70px !important;
   }
 }
 
@@ -9132,7 +9145,12 @@ footer,
 
 @media (max-width: 1399px) {
   .menu {
-    gap: 24px !important;
+    /*gap: 24px !important;*/
+	gap: 0px !important;
+  }
+  .header-logo.brand-lockup img{
+	width:auto !important;
+	max-width: 100% !important;
   }
 }
 
@@ -9648,7 +9666,9 @@ body {
   scroll-behavior: auto;
 }
 
-.product-applications-section .projects-autoplay.is-card-dragging .projects-card,
+.product-applications-section
+  .projects-autoplay.is-card-dragging
+  .projects-card,
 .who-we-serve-section .projects-autoplay.is-card-dragging .projects-card {
   pointer-events: none;
 }
@@ -9714,7 +9734,9 @@ body.is-card-slider-dragging {
   scroll-behavior: auto !important;
 }
 
-.product-applications-section .projects-autoplay.is-card-dragging .projects-card,
+.product-applications-section
+  .projects-autoplay.is-card-dragging
+  .projects-card,
 .who-we-serve-section .projects-autoplay.is-card-dragging .projects-card {
   pointer-events: none !important;
 }
@@ -9752,6 +9774,33 @@ body.is-card-slider-dragging {
     max-width: 100% !important;
     min-width: 100% !important;
   }
+
+  .who-we-serve-section .our-projects-img {
+    display: block !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .product-applications-section .projects-card {
+    flex: 0 0 calc((100% - 30px) / 2) !important;
+    max-width: calc((100% - 30px) / 2) !important;
+    min-width: calc((100% - 30px) / 2) !important;
+  }
+
+  .product-applications-section .projects-card-content-container {
+    left: 30px !important;
+    right: 30px !important;
+    padding: 20px 18px 20px 28px !important;
+    gap: 22px !important;
+  }
+
+  .product-applications-section .projects-card-left-content-container {
+    max-width: calc(100% - 62px) !important;
+  }
 }
 
 html.menu-open,
@@ -9770,7 +9819,9 @@ body.menu-open {
   opacity: 0 !important;
   visibility: hidden !important;
   pointer-events: none !important;
-  transition: opacity 0.28s ease, visibility 0.28s ease !important;
+  transition:
+    opacity 0.28s ease,
+    visibility 0.28s ease !important;
   z-index: 9990 !important;
 }
 
@@ -9787,5 +9838,101 @@ body.menu-open {
 
   .top-navbar {
     z-index: 10000 !important;
+  }
+}
+
+/* Mobile plywood carousel sizing */
+.plywood-stage {
+  max-width: 100% !important;
+}
+
+@media (max-width: 991.98px) {
+  .plywood-3d-carousel {
+    max-width: 100% !important;
+    overflow: visible !important;
+  }
+
+  .plywood-stage {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .plywood-3d-section {
+    padding: 72px 0 76px !important;
+    overflow: hidden !important;
+  }
+
+  .plywood-3d-content {
+    max-width: 100% !important;
+    margin-bottom: 30px !important;
+    padding: 0 20px !important;
+  }
+
+  .plywood-3d-content h2 {
+    max-width: 360px !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+    font-size: clamp(30px, 2.25rem, 36px) !important;
+    line-height: 1.18 !important;
+  }
+
+  .plywood-3d-content p {
+    max-width: 360px !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+  }
+
+  .plywood-3d-carousel {
+    height: 362px !important;
+    perspective: 1100px !important;
+  }
+
+  .plywood-stage {
+    height: 336px !important;
+    touch-action: pan-y !important;
+  }
+
+  .plywood-card-3d {
+    top: 8px !important;
+    width: clamp(190px, 58vw, 230px) !important;
+    height: clamp(270px, 78vw, 318px) !important;
+    border-radius: 24px !important;
+    box-shadow: 0 24px 54px rgba(var(--brand-green-dark-rgb), 0.18) !important;
+  }
+
+  .plywood-card-3d::after {
+    display: none !important;
+  }
+
+  .plywood-selected-box {
+    margin-top: 4px !important;
+    padding: 0 16px !important;
+  }
+
+  .plywood-selected-box p {
+    max-width: 100% !important;
+    min-height: 44px !important;
+    padding: 10px 18px !important;
+    font-size: 15px !important;
+    line-height: 1.25 !important;
+    white-space: normal !important;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .plywood-3d-carousel {
+    height: 346px !important;
+  }
+
+  .plywood-stage {
+    height: 320px !important;
+  }
+
+  .plywood-card-3d {
+    width: clamp(184px, 55vw, 220px) !important;
+    height: clamp(262px, 76vw, 304px) !important;
   }
 }

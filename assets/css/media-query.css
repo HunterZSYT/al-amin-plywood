@@ -4589,4 +4589,18 @@
     width: 100% !important;
     max-width: 100% !important;
   }
+
+  .who-we-serve-section .our-projects-img {
+    display: block !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-1-section {
+    margin-top: 120px !important;
+  }
 }

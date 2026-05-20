@@ -1,7 +1,7 @@
 (function ($) {
   "use strict";
   // Load Agentation only in local development so it stays out of production.
-  if (
+  /*if (
     !window.__agentationVanillaLoaded &&
     (location.hostname === "localhost" ||
       location.hostname === "127.0.0.1" ||
@@ -12,12 +12,12 @@
     script.src =
       "https://cdn.jsdelivr.net/gh/mearnest-dev/agentation-vanilla@main/agentation-vanilla.js";
     document.body.appendChild(script);
-  }
+  }*/
 
   // Whole Page scroll Aniamtion
 
   // Premium smooth reveal animation
-  document.addEventListener("DOMContentLoaded", () => {
+  /*document.addEventListener("DOMContentLoaded", () => {
     const revealElements = document.querySelectorAll(
       "[data-reveal], .fade_up, .fade_down, .zoom_in, .zoom_out, .fade_right, .fade_left, .flip_left, .flip_right, .flip_up, .flip_down",
     );
@@ -44,7 +44,16 @@
 
       revealObserver.observe(el);
     });
-  });
+  });*/
+  const observer = new IntersectionObserver((entries) => {
+        entries.forEach(({ isIntersecting, target }) => {
+            target.classList.toggle('show', isIntersecting);
+        });
+    });
+    const hiddenElements = document.querySelectorAll('.fade_up, .fade_down, .zoom_in, .zoom_out, .fade_right, .fade_left, .flip_left, .flip_right, .flip_up, .flip_down');
+    document.addEventListener('DOMContentLoaded', () => {
+        hiddenElements.forEach((el) => observer.observe(el));
+    });
   // fancy Box for pop-up section
   Fancybox.bind("[data-fancybox]", {
     Html5: {
