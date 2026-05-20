@@ -1,0 +1,17 @@
+{
+  "name": "Al-Amin Plywood Industries Ltd.",
+  "short_name": "Al-Amin Plywood",
+  "description": "Plywood sheets and wooden doors manufacturer in Bangladesh.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0f542b",
+  "icons": [
+    {
+      "src": "./assets/images/header/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
